@@ -22,6 +22,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/client-go/kubernetes/scheme"
 	"k8s.io/client-go/rest"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -50,6 +51,6 @@ func TestMain(m *testing.M) {
 	}
 
 	code := m.Run()
-	t.Stop()
+	utilruntime.Must(t.Stop())
 	os.Exit(code)
 }

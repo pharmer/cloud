@@ -191,7 +191,7 @@ func IssueAzureCredential(name string) (*api.Credential, error) {
 	roleAssignClient := aauthz.NewRoleAssignmentsClientWithBaseURI(aauthz.DefaultBaseURI, subscriptionID)
 	roleAssignClient.Authorizer = autorest.NewBearerAuthorizer(userSpt)
 
-	wait.PollImmediate(RetryInterval, RetryTimeout, func() (bool, error) {
+	err = wait.PollImmediate(RetryInterval, RetryTimeout, func() (bool, error) {
 		roleAssignmentName := uuid.NewRandom().String()
 		_, err := roleAssignClient.Create(context.TODO(), "subscriptions/"+subscriptionID, roleAssignmentName, aauthz.RoleAssignmentCreateParameters{
 			Properties: &aauthz.RoleAssignmentProperties{
@@ -204,6 +204,9 @@ func IssueAzureCredential(name string) (*api.Credential, error) {
 		}
 		return true, nil
 	})
+	if err != nil {
+		return nil, err
+	}
 
 	return &api.Credential{
 		ObjectMeta: metav1.ObjectMeta{

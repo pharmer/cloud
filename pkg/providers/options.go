@@ -95,27 +95,20 @@ func (c *Options) ValidateFlags(cmd *cobra.Command, args []string) error {
 	switch c.Provider {
 	case apis.GCE:
 		required = c.GCE.RequiredFlags()
-		break
 	case apis.DigitalOcean:
 		required = c.Do.RequiredFlags()
-		break
 	case apis.Packet:
 		required = c.Packet.RequiredFlags()
-		break
 	case apis.AWS:
 		required = c.AWS.RequiredFlags()
 	case apis.Azure:
 		required = c.Azure.RequiredFlags()
-		break
 	case apis.Vultr:
 		required = c.Vultr.RequiredFlags()
-		break
 	case apis.Linode:
 		required = c.Linode.RequiredFlags()
-		break
 	case apis.Scaleway:
 		required = c.Scaleway.RequiredFlags()
-		break
 	default:
 		fmt.Println("missing --provider flag")
 		os.Exit(1)

@@ -22,8 +22,8 @@ import (
 	v1 "pharmer.dev/cloud/apis/cloud/v1"
 	"pharmer.dev/cloud/pkg/credential"
 
-	"golang.org/x/oauth2/google"
 	"google.golang.org/api/compute/v1"
+	"google.golang.org/api/option"
 )
 
 type Client struct {
@@ -129,10 +129,5 @@ func (g *Client) ListMachineTypes() ([]v1.MachineType, error) {
 }
 
 func getComputeService(ctx context.Context, sajson string) (*compute.Service, error) {
-	conf, err := google.JWTConfigFromJSON([]byte(sajson), compute.ComputeScope)
-	if err != nil {
-		return nil, err
-	}
-	client := conf.Client(ctx)
-	return compute.New(client)
+	return compute.NewService(ctx, option.WithCredentialsJSON([]byte(sajson)), option.WithScopes(compute.ComputeScope))
 }

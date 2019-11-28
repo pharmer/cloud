@@ -20,6 +20,8 @@ import (
 	"testing"
 
 	"pharmer.dev/cloud/pkg/credential"
+
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 )
 
 func TestInstance(t *testing.T) {
@@ -36,6 +38,6 @@ func TestInstance(t *testing.T) {
 
 func getToken() credential.Scaleway {
 	var v credential.Scaleway
-	v.LoadFromJSON("/home/ac/Downloads/cred/scaleway.json")
+	utilruntime.Must(v.LoadFromJSON("/home/ac/Downloads/cred/scaleway.json"))
 	return v
 }

@@ -20,6 +20,8 @@ import (
 	"testing"
 
 	"pharmer.dev/cloud/pkg/credential"
+
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 )
 
 func TestRegion(t *testing.T) {
@@ -52,6 +54,6 @@ func TestInstance(t *testing.T) {
 
 func getToken() credential.Linode {
 	var v credential.Linode
-	v.LoadFromJSON("/home/ac/Downloads/cred/linode.json")
+	utilruntime.Must(v.LoadFromJSON("/home/ac/Downloads/cred/linode.json"))
 	return v
 }

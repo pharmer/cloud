@@ -19,6 +19,8 @@ import (
 	"testing"
 
 	"pharmer.dev/cloud/pkg/credential"
+
+	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 )
 
 func TestRegion(t *testing.T) {
@@ -51,6 +53,6 @@ func TestInstance(t *testing.T) {
 
 func getToken() credential.DigitalOcean {
 	var v credential.DigitalOcean
-	v.LoadFromJSON("/home/ac/Downloads/cred/digitalocean.json")
+	utilruntime.Must(v.LoadFromJSON("/home/ac/Downloads/cred/digitalocean.json"))
 	return v
 }
