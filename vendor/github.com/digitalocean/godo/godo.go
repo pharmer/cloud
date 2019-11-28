@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	libraryVersion = "1.10.0"
+	libraryVersion = "1.27.0"
 	defaultBaseURL = "https://api.digitalocean.com/"
 	userAgent      = "godo/" + libraryVersion
 	mediaType      = "application/json"
@@ -65,7 +65,9 @@ type Client struct {
 	Firewalls         FirewallsService
 	Projects          ProjectsService
 	Kubernetes        KubernetesService
+	Registry          RegistryService
 	Databases         DatabasesService
+	VPCs              VPCsService
 
 	// Optional function called after every successful request made to the DO APIs
 	onRequestCompleted RequestCompletionCallback
@@ -180,7 +182,9 @@ func NewClient(httpClient *http.Client) *Client {
 	c.StorageActions = &StorageActionsServiceOp{client: c}
 	c.Tags = &TagsServiceOp{client: c}
 	c.Kubernetes = &KubernetesServiceOp{client: c}
+	c.Registry = &RegistryServiceOp{client: c}
 	c.Databases = &DatabasesServiceOp{client: c}
+	c.VPCs = &VPCsServiceOp{client: c}
 
 	return c
 }
@@ -225,12 +229,10 @@ func SetUserAgent(ua string) ClientOpt {
 // BaseURL of the Client. Relative URLS should always be specified without a preceding slash. If specified, the
 // value pointed to by body is JSON encoded and included in as the request body.
 func (c *Client) NewRequest(ctx context.Context, method, urlStr string, body interface{}) (*http.Request, error) {
-	rel, err := url.Parse(urlStr)
+	u, err := c.BaseURL.Parse(urlStr)
 	if err != nil {
 		return nil, err
 	}
-
-	u := c.BaseURL.ResolveReference(rel)
 
 	buf := new(bytes.Buffer)
 	if body != nil {
