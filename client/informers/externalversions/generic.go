@@ -53,8 +53,16 @@ func (f *genericInformer) Lister() cache.GenericLister {
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
 	// Group=cloud.pharmer.io, Version=v1
+	case v1.SchemeGroupVersion.WithResource("cloudproviders"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Cloud().V1().CloudProviders().Informer()}, nil
 	case v1.SchemeGroupVersion.WithResource("credentials"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Cloud().V1().Credentials().Informer()}, nil
+	case v1.SchemeGroupVersion.WithResource("credentialformats"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Cloud().V1().CredentialFormats().Informer()}, nil
+	case v1.SchemeGroupVersion.WithResource("kubernetesversions"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Cloud().V1().KubernetesVersions().Informer()}, nil
+	case v1.SchemeGroupVersion.WithResource("machinetypes"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Cloud().V1().MachineTypes().Informer()}, nil
 
 	}
 

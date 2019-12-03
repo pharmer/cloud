@@ -8,14 +8,17 @@ metadata:
 spec:
   group: cloud.pharmer.io
   names:
+    categories:
+    - pharmer
+    - appscode
     kind: CloudProvider
     listKind: CloudProviderList
     plural: cloudproviders
     singular: cloudprovider
-  scope: ""
+  preserveUnknownFields: false
+  scope: Cluster
   validation:
     openAPIV3Schema:
-      description: CloudProvider is the Schema for the cloudproviders API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -33,8 +36,6 @@ spec:
           description: CloudProviderSpec defines the desired state of CloudProvider
           properties:
             credentialFormat:
-              description: CredentialFormat is the Schema for the credentialformats
-                API
               properties:
                 apiVersion:
                   description: 'APIVersion defines the versioned schema of this representation
@@ -80,8 +81,6 @@ spec:
               type: object
             kubernetesVersions:
               items:
-                description: KubernetesVersion is the Schema for the kubernetesversions
-                  API
                 properties:
                   apiVersion:
                     description: 'APIVersion defines the versioned schema of this

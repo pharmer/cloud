@@ -8,14 +8,17 @@ metadata:
 spec:
   group: cloud.pharmer.io
   names:
+    categories:
+    - pharmer
+    - appscode
     kind: KubernetesVersion
     listKind: KubernetesVersionList
     plural: kubernetesversions
     singular: kubernetesversion
-  scope: ""
+  preserveUnknownFields: false
+  scope: Cluster
   validation:
     openAPIV3Schema:
-      description: KubernetesVersion is the Schema for the kubernetesversions API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation

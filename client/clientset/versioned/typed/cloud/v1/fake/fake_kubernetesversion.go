@@ -23,6 +23,7 @@ import (
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
+	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 	cloudv1 "pharmer.dev/cloud/apis/cloud/v1"
 )
@@ -65,6 +66,12 @@ func (c *FakeKubernetesVersions) List(opts v1.ListOptions) (result *cloudv1.Kube
 		}
 	}
 	return list, err
+}
+
+// Watch returns a watch.Interface that watches the requested kubernetesVersions.
+func (c *FakeKubernetesVersions) Watch(opts v1.ListOptions) (watch.Interface, error) {
+	return c.Fake.
+		InvokesWatch(testing.NewRootWatchAction(kubernetesversionsResource, opts))
 }
 
 // Create takes the representation of a kubernetesVersion and creates it.  Returns the server's representation of the kubernetesVersion, and an error, if there is any.

@@ -23,6 +23,7 @@ import (
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	types "k8s.io/apimachinery/pkg/types"
+	watch "k8s.io/apimachinery/pkg/watch"
 	testing "k8s.io/client-go/testing"
 	cloudv1 "pharmer.dev/cloud/apis/cloud/v1"
 )
@@ -65,6 +66,12 @@ func (c *FakeCredentialFormats) List(opts v1.ListOptions) (result *cloudv1.Crede
 		}
 	}
 	return list, err
+}
+
+// Watch returns a watch.Interface that watches the requested credentialFormats.
+func (c *FakeCredentialFormats) Watch(opts v1.ListOptions) (watch.Interface, error) {
+	return c.Fake.
+		InvokesWatch(testing.NewRootWatchAction(credentialformatsResource, opts))
 }
 
 // Create takes the representation of a credentialFormat and creates it.  Returns the server's representation of the credentialFormat, and an error, if there is any.

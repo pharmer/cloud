@@ -23,6 +23,7 @@ import (
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
+	watch "k8s.io/apimachinery/pkg/watch"
 	rest "k8s.io/client-go/rest"
 	v1 "pharmer.dev/cloud/apis/cloud/v1"
 	scheme "pharmer.dev/cloud/client/clientset/versioned/scheme"
@@ -42,6 +43,7 @@ type MachineTypeInterface interface {
 	DeleteCollection(options *metav1.DeleteOptions, listOptions metav1.ListOptions) error
 	Get(name string, options metav1.GetOptions) (*v1.MachineType, error)
 	List(opts metav1.ListOptions) (*v1.MachineTypeList, error)
+	Watch(opts metav1.ListOptions) (watch.Interface, error)
 	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1.MachineType, err error)
 	MachineTypeExpansion
 }
@@ -84,6 +86,20 @@ func (c *machineTypes) List(opts metav1.ListOptions) (result *v1.MachineTypeList
 		Do().
 		Into(result)
 	return
+}
+
+// Watch returns a watch.Interface that watches the requested machineTypes.
+func (c *machineTypes) Watch(opts metav1.ListOptions) (watch.Interface, error) {
+	var timeout time.Duration
+	if opts.TimeoutSeconds != nil {
+		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
+	}
+	opts.Watch = true
+	return c.client.Get().
+		Resource("machinetypes").
+		VersionedParams(&opts, scheme.ParameterCodec).
+		Timeout(timeout).
+		Watch()
 }
 
 // Create takes the representation of a machineType and creates it.  Returns the server's representation of the machineType, and an error, if there is any.

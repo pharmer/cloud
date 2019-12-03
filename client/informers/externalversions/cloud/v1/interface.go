@@ -24,8 +24,16 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
+	// CloudProviders returns a CloudProviderInformer.
+	CloudProviders() CloudProviderInformer
 	// Credentials returns a CredentialInformer.
 	Credentials() CredentialInformer
+	// CredentialFormats returns a CredentialFormatInformer.
+	CredentialFormats() CredentialFormatInformer
+	// KubernetesVersions returns a KubernetesVersionInformer.
+	KubernetesVersions() KubernetesVersionInformer
+	// MachineTypes returns a MachineTypeInformer.
+	MachineTypes() MachineTypeInformer
 }
 
 type version struct {
@@ -39,7 +47,27 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
 }
 
+// CloudProviders returns a CloudProviderInformer.
+func (v *version) CloudProviders() CloudProviderInformer {
+	return &cloudProviderInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+}
+
 // Credentials returns a CredentialInformer.
 func (v *version) Credentials() CredentialInformer {
 	return &credentialInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+}
+
+// CredentialFormats returns a CredentialFormatInformer.
+func (v *version) CredentialFormats() CredentialFormatInformer {
+	return &credentialFormatInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+}
+
+// KubernetesVersions returns a KubernetesVersionInformer.
+func (v *version) KubernetesVersions() KubernetesVersionInformer {
+	return &kubernetesVersionInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+}
+
+// MachineTypes returns a MachineTypeInformer.
+func (v *version) MachineTypes() MachineTypeInformer {
+	return &machineTypeInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }

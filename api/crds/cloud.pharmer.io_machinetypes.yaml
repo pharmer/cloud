@@ -18,11 +18,15 @@ spec:
     type: string
   group: cloud.pharmer.io
   names:
+    categories:
+    - pharmer
+    - appscode
     kind: MachineType
     listKind: MachineTypeList
     plural: machinetypes
     singular: machinetype
-  scope: ""
+  preserveUnknownFields: false
+  scope: Cluster
   subresources: {}
   validation:
     openAPIV3Schema:
