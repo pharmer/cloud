@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -38,7 +40,7 @@ var credentialsResource = schema.GroupVersionResource{Group: "cloud.pharmer.io",
 var credentialsKind = schema.GroupVersionKind{Group: "cloud.pharmer.io", Version: "v1", Kind: "Credential"}
 
 // Get takes name of the credential, and returns the corresponding credential object, and an error if there is any.
-func (c *FakeCredentials) Get(name string, options v1.GetOptions) (result *cloudv1.Credential, err error) {
+func (c *FakeCredentials) Get(ctx context.Context, name string, options v1.GetOptions) (result *cloudv1.Credential, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(credentialsResource, name), &cloudv1.Credential{})
 	if obj == nil {
@@ -48,7 +50,7 @@ func (c *FakeCredentials) Get(name string, options v1.GetOptions) (result *cloud
 }
 
 // List takes label and field selectors, and returns the list of Credentials that match those selectors.
-func (c *FakeCredentials) List(opts v1.ListOptions) (result *cloudv1.CredentialList, err error) {
+func (c *FakeCredentials) List(ctx context.Context, opts v1.ListOptions) (result *cloudv1.CredentialList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(credentialsResource, credentialsKind, opts), &cloudv1.CredentialList{})
 	if obj == nil {
@@ -69,13 +71,13 @@ func (c *FakeCredentials) List(opts v1.ListOptions) (result *cloudv1.CredentialL
 }
 
 // Watch returns a watch.Interface that watches the requested credentials.
-func (c *FakeCredentials) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeCredentials) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(credentialsResource, opts))
 }
 
 // Create takes the representation of a credential and creates it.  Returns the server's representation of the credential, and an error, if there is any.
-func (c *FakeCredentials) Create(credential *cloudv1.Credential) (result *cloudv1.Credential, err error) {
+func (c *FakeCredentials) Create(ctx context.Context, credential *cloudv1.Credential, opts v1.CreateOptions) (result *cloudv1.Credential, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(credentialsResource, credential), &cloudv1.Credential{})
 	if obj == nil {
@@ -85,7 +87,7 @@ func (c *FakeCredentials) Create(credential *cloudv1.Credential) (result *cloudv
 }
 
 // Update takes the representation of a credential and updates it. Returns the server's representation of the credential, and an error, if there is any.
-func (c *FakeCredentials) Update(credential *cloudv1.Credential) (result *cloudv1.Credential, err error) {
+func (c *FakeCredentials) Update(ctx context.Context, credential *cloudv1.Credential, opts v1.UpdateOptions) (result *cloudv1.Credential, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(credentialsResource, credential), &cloudv1.Credential{})
 	if obj == nil {
@@ -95,22 +97,22 @@ func (c *FakeCredentials) Update(credential *cloudv1.Credential) (result *cloudv
 }
 
 // Delete takes name of the credential and deletes it. Returns an error if one occurs.
-func (c *FakeCredentials) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeCredentials) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(credentialsResource, name), &cloudv1.Credential{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeCredentials) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(credentialsResource, listOptions)
+func (c *FakeCredentials) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(credentialsResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &cloudv1.CredentialList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched credential.
-func (c *FakeCredentials) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *cloudv1.Credential, err error) {
+func (c *FakeCredentials) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *cloudv1.Credential, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(credentialsResource, name, pt, data, subresources...), &cloudv1.Credential{})
 	if obj == nil {

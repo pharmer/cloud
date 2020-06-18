@@ -20,9 +20,9 @@ REPO     := $(notdir $(shell pwd))
 BIN      := cloud
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
-CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false"
+CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1beta1,v1}"
 # https://github.com/appscodelabs/gengo-builder
-CODE_GENERATOR_IMAGE ?= appscode/gengo:release-1.16
+CODE_GENERATOR_IMAGE ?= appscode/gengo:release-1.18
 API_GROUPS           ?= cloud:v1
 
 # This version-strategy uses git tags to set the version string
@@ -49,7 +49,7 @@ endif
 ### These variables should not need tweaking.
 ###
 
-SRC_PKGS := api apis cmd config data pkg
+SRC_PKGS := apis cmd crds data pkg
 SRC_DIRS := $(SRC_PKGS) hack # directories which hold app source (not vendored)
 
 DOCKER_PLATFORMS := linux/amd64 linux/arm linux/arm64
@@ -62,7 +62,7 @@ ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 BASEIMAGE_PROD   ?= gcr.io/distroless/static
 BASEIMAGE_DBG    ?= debian:stretch
 
-GO_VERSION       ?= 1.13.4
+GO_VERSION       ?= 1.14
 BUILD_IMAGE      ?= appscode/golang-dev:$(GO_VERSION)
 
 OUTBIN = bin/$(OS)_$(ARCH)/$(BIN)
@@ -129,7 +129,7 @@ openapi: $(addprefix openapi-, $(subst :,_, $(API_GROUPS)))
 
 openapi-%:
 	@echo "Generating openapi schema for $(subst _,/,$*)"
-	@mkdir -p api/api-rules
+	@mkdir -p .config/api-rules
 	@docker run --rm	                                 \
 		-u $$(id -u):$$(id -g)                           \
 		-v /tmp:/.cache                                  \
@@ -143,13 +143,13 @@ openapi-%:
 			--go-header-file "./hack/license/go.txt" \
 			--input-dirs "$(GO_PKG)/$(REPO)/apis/$(subst _,/,$*),k8s.io/apimachinery/pkg/apis/meta/v1,k8s.io/apimachinery/pkg/api/resource,k8s.io/apimachinery/pkg/runtime,k8s.io/apimachinery/pkg/util/intstr,k8s.io/apimachinery/pkg/version,k8s.io/api/core/v1,k8s.io/api/apps/v1" \
 			--output-package "$(GO_PKG)/$(REPO)/apis/$(subst _,/,$*)" \
-			--report-filename /tmp/violation_exceptions.list
+			--report-filename .config/api-rules/violation_exceptions.list
 
 # Generate CRD manifests
 .PHONY: gen-crds
 gen-crds:
 	@echo "Generating CRD manifests"
-	@docker run --rm	                    \
+	@docker run --rm 	                    \
 		-u $$(id -u):$$(id -g)              \
 		-v /tmp:/.cache                     \
 		-v $$(pwd):$(DOCKER_REPO_ROOT)      \
@@ -160,19 +160,13 @@ gen-crds:
 		controller-gen                      \
 			$(CRD_OPTIONS)                  \
 			paths="./apis/..."              \
-			output:crd:artifacts:config=api/crds
-
-crds_to_patch := cloud.pharmer.io_cloudproviders.yaml \
-					cloud.pharmer.io_credentialformats.yaml \
-					cloud.pharmer.io_credentials.yaml \
-					cloud.pharmer.io_kubernetesversions.yaml \
-					cloud.pharmer.io_machinetypes.yaml
+			output:crd:artifacts:config=crds
 
 .PHONY: label-crds
 label-crds: $(BUILD_DIRS)
-	@for f in api/crds/*.yaml; do \
-		echo "applying app=pharmer label to $$f"; \
-		kubectl label --overwrite -f $$f --local=true -o yaml app=pharmer > bin/crd.yaml; \
+	@for f in crds/*.yaml; do \
+		echo "applying app.kubernetes.io/name=pharmer label to $$f"; \
+		kubectl label --overwrite -f $$f --local=true -o yaml app.kubernetes.io/name=pharmer > bin/crd.yaml; \
 		mv bin/crd.yaml $$f; \
 	done
 
@@ -183,7 +177,7 @@ gen-bindata:
 	    --rm                                                    \
 	    -u $$(id -u):$$(id -g)                                  \
 	    -v $$(pwd):/src                                         \
-	    -w /src/api/crds                                        \
+	    -w /src/crds                                        \
 		-v /tmp:/.cache                                         \
 	    --env HTTP_PROXY=$(HTTP_PROXY)                          \
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \

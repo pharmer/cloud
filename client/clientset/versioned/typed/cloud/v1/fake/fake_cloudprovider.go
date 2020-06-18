@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -38,7 +40,7 @@ var cloudprovidersResource = schema.GroupVersionResource{Group: "cloud.pharmer.i
 var cloudprovidersKind = schema.GroupVersionKind{Group: "cloud.pharmer.io", Version: "v1", Kind: "CloudProvider"}
 
 // Get takes name of the cloudProvider, and returns the corresponding cloudProvider object, and an error if there is any.
-func (c *FakeCloudProviders) Get(name string, options v1.GetOptions) (result *cloudv1.CloudProvider, err error) {
+func (c *FakeCloudProviders) Get(ctx context.Context, name string, options v1.GetOptions) (result *cloudv1.CloudProvider, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(cloudprovidersResource, name), &cloudv1.CloudProvider{})
 	if obj == nil {
@@ -48,7 +50,7 @@ func (c *FakeCloudProviders) Get(name string, options v1.GetOptions) (result *cl
 }
 
 // List takes label and field selectors, and returns the list of CloudProviders that match those selectors.
-func (c *FakeCloudProviders) List(opts v1.ListOptions) (result *cloudv1.CloudProviderList, err error) {
+func (c *FakeCloudProviders) List(ctx context.Context, opts v1.ListOptions) (result *cloudv1.CloudProviderList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(cloudprovidersResource, cloudprovidersKind, opts), &cloudv1.CloudProviderList{})
 	if obj == nil {
@@ -69,13 +71,13 @@ func (c *FakeCloudProviders) List(opts v1.ListOptions) (result *cloudv1.CloudPro
 }
 
 // Watch returns a watch.Interface that watches the requested cloudProviders.
-func (c *FakeCloudProviders) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeCloudProviders) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(cloudprovidersResource, opts))
 }
 
 // Create takes the representation of a cloudProvider and creates it.  Returns the server's representation of the cloudProvider, and an error, if there is any.
-func (c *FakeCloudProviders) Create(cloudProvider *cloudv1.CloudProvider) (result *cloudv1.CloudProvider, err error) {
+func (c *FakeCloudProviders) Create(ctx context.Context, cloudProvider *cloudv1.CloudProvider, opts v1.CreateOptions) (result *cloudv1.CloudProvider, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(cloudprovidersResource, cloudProvider), &cloudv1.CloudProvider{})
 	if obj == nil {
@@ -85,7 +87,7 @@ func (c *FakeCloudProviders) Create(cloudProvider *cloudv1.CloudProvider) (resul
 }
 
 // Update takes the representation of a cloudProvider and updates it. Returns the server's representation of the cloudProvider, and an error, if there is any.
-func (c *FakeCloudProviders) Update(cloudProvider *cloudv1.CloudProvider) (result *cloudv1.CloudProvider, err error) {
+func (c *FakeCloudProviders) Update(ctx context.Context, cloudProvider *cloudv1.CloudProvider, opts v1.UpdateOptions) (result *cloudv1.CloudProvider, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(cloudprovidersResource, cloudProvider), &cloudv1.CloudProvider{})
 	if obj == nil {
@@ -95,22 +97,22 @@ func (c *FakeCloudProviders) Update(cloudProvider *cloudv1.CloudProvider) (resul
 }
 
 // Delete takes name of the cloudProvider and deletes it. Returns an error if one occurs.
-func (c *FakeCloudProviders) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeCloudProviders) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(cloudprovidersResource, name), &cloudv1.CloudProvider{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeCloudProviders) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(cloudprovidersResource, listOptions)
+func (c *FakeCloudProviders) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(cloudprovidersResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &cloudv1.CloudProviderList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched cloudProvider.
-func (c *FakeCloudProviders) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *cloudv1.CloudProvider, err error) {
+func (c *FakeCloudProviders) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *cloudv1.CloudProvider, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(cloudprovidersResource, name, pt, data, subresources...), &cloudv1.CloudProvider{})
 	if obj == nil {

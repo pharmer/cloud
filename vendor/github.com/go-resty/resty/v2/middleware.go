@@ -195,15 +195,15 @@ func createHTTPRequest(c *Client, r *Request) (err error) {
 		r.RawRequest.URL.Host = r.URL
 	}
 
-	// Use context if it was specified
-	if r.ctx != nil {
-		r.RawRequest = r.RawRequest.WithContext(r.ctx)
-	}
-
 	// Enable trace
 	if c.trace || r.trace {
 		r.clientTrace = &clientTrace{}
-		r.RawRequest = r.RawRequest.WithContext(r.clientTrace.createContext())
+		r.ctx = r.clientTrace.createContext(r.Context())
+	}
+
+	// Use context if it was specified
+	if r.ctx != nil {
+		r.RawRequest = r.RawRequest.WithContext(r.ctx)
 	}
 
 	// assign get body func for the underlying raw request instance
@@ -330,6 +330,7 @@ func parseResponseBody(c *Client, res *Response) (err error) {
 	if IsJSONType(ct) || IsXMLType(ct) {
 		// HTTP status code > 199 and < 300, considered as Result
 		if res.IsSuccess() {
+			res.Request.Error = nil
 			if res.Request.Result != nil {
 				err = Unmarshalc(c, ct, res.body, res.Request.Result)
 				return

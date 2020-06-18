@@ -15,10 +15,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/containerd/console"
 	"github.com/creack/goselect"
 	"github.com/gorilla/websocket"
 	"github.com/sirupsen/logrus"
-	"golang.org/x/crypto/ssh/terminal"
 )
 
 // message types for gotty
@@ -157,6 +157,9 @@ func (c *Client) GetAuthToken() (string, error) {
 
 	logrus.Debugf("Fetching auth token auth-token: %q", target.String())
 	req, err := http.NewRequest("GET", target.String(), nil)
+	if err != nil {
+		return "", err
+	}
 	req.Header = *header
 	tr := &http.Transport{}
 	if c.SkipTLSVerify {
@@ -246,6 +249,9 @@ func (c *Client) Connect() error {
 		return err
 	}
 
+	// Initialize message types for gotty
+	c.initMessageType()
+
 	go c.pingLoop()
 
 	return nil
@@ -281,7 +287,10 @@ func (c *Client) initMessageType() {
 func (c *Client) pingLoop() {
 	for {
 		logrus.Debugf("Sending ping")
-		c.write([]byte{c.message.ping})
+		err := c.write([]byte{c.message.ping})
+		if err != nil {
+			logrus.Warnf("c.write: %v", err)
+		}
 		time.Sleep(30 * time.Second)
 	}
 }
@@ -300,8 +309,6 @@ func (c *Client) ExitLoop() {
 
 // Loop will look indefinitely for new messages
 func (c *Client) Loop() error {
-	// Initialize message types for gotty
-	c.initMessageType()
 
 	if !c.Connected {
 		err := c.Connect()
@@ -309,6 +316,17 @@ func (c *Client) Loop() error {
 			return err
 		}
 	}
+	term, err := console.ConsoleFromFile(os.Stdout)
+	if err != nil {
+		return fmt.Errorf("os.Stdout is not a valid terminal")
+	}
+	err = term.SetRaw()
+	if err != nil {
+		return fmt.Errorf("Error setting raw terminal: %v", err)
+	}
+	defer func() {
+		_ = term.Reset()
+	}()
 
 	wg := &sync.WaitGroup{}
 
@@ -331,9 +349,6 @@ func (c *Client) Loop() error {
 type winsize struct {
 	Rows    uint16 `json:"rows"`
 	Columns uint16 `json:"columns"`
-	// unused
-	x uint16
-	y uint16
 }
 
 type posionReason int
@@ -406,10 +421,6 @@ func (c *Client) writeLoop(wg *sync.WaitGroup) posionReason {
 	fname := "writeLoop"
 
 	buff := make([]byte, 128)
-	oldState, err := terminal.MakeRaw(0)
-	if err == nil {
-		defer terminal.Restore(0, oldState)
-	}
 
 	rdfs := &goselect.FDSet{}
 	reader := io.ReadCloser(os.Stdin)
@@ -505,7 +516,7 @@ func (c *Client) readLoop(wg *sync.WaitGroup) posionReason {
 					logrus.Warnf("Invalid base64 content: %q", msg.Data[1:])
 					break
 				}
-				c.Output.Write(buf)
+				_, _ = c.Output.Write(buf)
 			case c.message.pong: // pong
 			case c.message.setWindowTitle: // new title
 				newTitle := string(msg.Data[1:])

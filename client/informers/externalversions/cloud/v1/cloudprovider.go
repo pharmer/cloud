@@ -19,6 +19,7 @@ limitations under the License.
 package v1
 
 import (
+	"context"
 	time "time"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -60,13 +61,13 @@ func NewFilteredCloudProviderInformer(client versioned.Interface, resyncPeriod t
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.CloudV1().CloudProviders().List(options)
+				return client.CloudV1().CloudProviders().List(context.TODO(), options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.CloudV1().CloudProviders().Watch(options)
+				return client.CloudV1().CloudProviders().Watch(context.TODO(), options)
 			},
 		},
 		&cloudv1.CloudProvider{},

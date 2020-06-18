@@ -19,6 +19,7 @@ limitations under the License.
 package v1
 
 import (
+	"context"
 	time "time"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -60,13 +61,13 @@ func NewFilteredKubernetesVersionInformer(client versioned.Interface, resyncPeri
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.CloudV1().KubernetesVersions().List(options)
+				return client.CloudV1().KubernetesVersions().List(context.TODO(), options)
 			},
 			WatchFunc: func(options metav1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.CloudV1().KubernetesVersions().Watch(options)
+				return client.CloudV1().KubernetesVersions().Watch(context.TODO(), options)
 			},
 		},
 		&cloudv1.KubernetesVersion{},

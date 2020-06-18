@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -38,7 +40,7 @@ var machinetypesResource = schema.GroupVersionResource{Group: "cloud.pharmer.io"
 var machinetypesKind = schema.GroupVersionKind{Group: "cloud.pharmer.io", Version: "v1", Kind: "MachineType"}
 
 // Get takes name of the machineType, and returns the corresponding machineType object, and an error if there is any.
-func (c *FakeMachineTypes) Get(name string, options v1.GetOptions) (result *cloudv1.MachineType, err error) {
+func (c *FakeMachineTypes) Get(ctx context.Context, name string, options v1.GetOptions) (result *cloudv1.MachineType, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(machinetypesResource, name), &cloudv1.MachineType{})
 	if obj == nil {
@@ -48,7 +50,7 @@ func (c *FakeMachineTypes) Get(name string, options v1.GetOptions) (result *clou
 }
 
 // List takes label and field selectors, and returns the list of MachineTypes that match those selectors.
-func (c *FakeMachineTypes) List(opts v1.ListOptions) (result *cloudv1.MachineTypeList, err error) {
+func (c *FakeMachineTypes) List(ctx context.Context, opts v1.ListOptions) (result *cloudv1.MachineTypeList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(machinetypesResource, machinetypesKind, opts), &cloudv1.MachineTypeList{})
 	if obj == nil {
@@ -69,13 +71,13 @@ func (c *FakeMachineTypes) List(opts v1.ListOptions) (result *cloudv1.MachineTyp
 }
 
 // Watch returns a watch.Interface that watches the requested machineTypes.
-func (c *FakeMachineTypes) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeMachineTypes) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(machinetypesResource, opts))
 }
 
 // Create takes the representation of a machineType and creates it.  Returns the server's representation of the machineType, and an error, if there is any.
-func (c *FakeMachineTypes) Create(machineType *cloudv1.MachineType) (result *cloudv1.MachineType, err error) {
+func (c *FakeMachineTypes) Create(ctx context.Context, machineType *cloudv1.MachineType, opts v1.CreateOptions) (result *cloudv1.MachineType, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(machinetypesResource, machineType), &cloudv1.MachineType{})
 	if obj == nil {
@@ -85,7 +87,7 @@ func (c *FakeMachineTypes) Create(machineType *cloudv1.MachineType) (result *clo
 }
 
 // Update takes the representation of a machineType and updates it. Returns the server's representation of the machineType, and an error, if there is any.
-func (c *FakeMachineTypes) Update(machineType *cloudv1.MachineType) (result *cloudv1.MachineType, err error) {
+func (c *FakeMachineTypes) Update(ctx context.Context, machineType *cloudv1.MachineType, opts v1.UpdateOptions) (result *cloudv1.MachineType, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(machinetypesResource, machineType), &cloudv1.MachineType{})
 	if obj == nil {
@@ -95,22 +97,22 @@ func (c *FakeMachineTypes) Update(machineType *cloudv1.MachineType) (result *clo
 }
 
 // Delete takes name of the machineType and deletes it. Returns an error if one occurs.
-func (c *FakeMachineTypes) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeMachineTypes) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(machinetypesResource, name), &cloudv1.MachineType{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeMachineTypes) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(machinetypesResource, listOptions)
+func (c *FakeMachineTypes) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(machinetypesResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &cloudv1.MachineTypeList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched machineType.
-func (c *FakeMachineTypes) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *cloudv1.MachineType, err error) {
+func (c *FakeMachineTypes) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *cloudv1.MachineType, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(machinetypesResource, name, pt, data, subresources...), &cloudv1.MachineType{})
 	if obj == nil {

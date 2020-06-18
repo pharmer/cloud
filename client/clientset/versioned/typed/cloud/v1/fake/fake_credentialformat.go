@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -38,7 +40,7 @@ var credentialformatsResource = schema.GroupVersionResource{Group: "cloud.pharme
 var credentialformatsKind = schema.GroupVersionKind{Group: "cloud.pharmer.io", Version: "v1", Kind: "CredentialFormat"}
 
 // Get takes name of the credentialFormat, and returns the corresponding credentialFormat object, and an error if there is any.
-func (c *FakeCredentialFormats) Get(name string, options v1.GetOptions) (result *cloudv1.CredentialFormat, err error) {
+func (c *FakeCredentialFormats) Get(ctx context.Context, name string, options v1.GetOptions) (result *cloudv1.CredentialFormat, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(credentialformatsResource, name), &cloudv1.CredentialFormat{})
 	if obj == nil {
@@ -48,7 +50,7 @@ func (c *FakeCredentialFormats) Get(name string, options v1.GetOptions) (result 
 }
 
 // List takes label and field selectors, and returns the list of CredentialFormats that match those selectors.
-func (c *FakeCredentialFormats) List(opts v1.ListOptions) (result *cloudv1.CredentialFormatList, err error) {
+func (c *FakeCredentialFormats) List(ctx context.Context, opts v1.ListOptions) (result *cloudv1.CredentialFormatList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(credentialformatsResource, credentialformatsKind, opts), &cloudv1.CredentialFormatList{})
 	if obj == nil {
@@ -69,13 +71,13 @@ func (c *FakeCredentialFormats) List(opts v1.ListOptions) (result *cloudv1.Crede
 }
 
 // Watch returns a watch.Interface that watches the requested credentialFormats.
-func (c *FakeCredentialFormats) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeCredentialFormats) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(credentialformatsResource, opts))
 }
 
 // Create takes the representation of a credentialFormat and creates it.  Returns the server's representation of the credentialFormat, and an error, if there is any.
-func (c *FakeCredentialFormats) Create(credentialFormat *cloudv1.CredentialFormat) (result *cloudv1.CredentialFormat, err error) {
+func (c *FakeCredentialFormats) Create(ctx context.Context, credentialFormat *cloudv1.CredentialFormat, opts v1.CreateOptions) (result *cloudv1.CredentialFormat, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(credentialformatsResource, credentialFormat), &cloudv1.CredentialFormat{})
 	if obj == nil {
@@ -85,7 +87,7 @@ func (c *FakeCredentialFormats) Create(credentialFormat *cloudv1.CredentialForma
 }
 
 // Update takes the representation of a credentialFormat and updates it. Returns the server's representation of the credentialFormat, and an error, if there is any.
-func (c *FakeCredentialFormats) Update(credentialFormat *cloudv1.CredentialFormat) (result *cloudv1.CredentialFormat, err error) {
+func (c *FakeCredentialFormats) Update(ctx context.Context, credentialFormat *cloudv1.CredentialFormat, opts v1.UpdateOptions) (result *cloudv1.CredentialFormat, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(credentialformatsResource, credentialFormat), &cloudv1.CredentialFormat{})
 	if obj == nil {
@@ -95,22 +97,22 @@ func (c *FakeCredentialFormats) Update(credentialFormat *cloudv1.CredentialForma
 }
 
 // Delete takes name of the credentialFormat and deletes it. Returns an error if one occurs.
-func (c *FakeCredentialFormats) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeCredentialFormats) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(credentialformatsResource, name), &cloudv1.CredentialFormat{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeCredentialFormats) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(credentialformatsResource, listOptions)
+func (c *FakeCredentialFormats) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(credentialformatsResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &cloudv1.CredentialFormatList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched credentialFormat.
-func (c *FakeCredentialFormats) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *cloudv1.CredentialFormat, err error) {
+func (c *FakeCredentialFormats) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *cloudv1.CredentialFormat, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(credentialformatsResource, name, pt, data, subresources...), &cloudv1.CredentialFormat{})
 	if obj == nil {

@@ -1,0 +1,93 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/name: pharmer
+  name: machinetypes.cloud.pharmer.io
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.sku
+    name: SKU
+    type: string
+  - JSONPath: .spec.cpu
+    name: CPU
+    type: string
+  - JSONPath: .spec.ram
+    name: RAM
+    type: string
+  group: cloud.pharmer.io
+  names:
+    categories:
+    - pharmer
+    - appscode
+    kind: MachineType
+    listKind: MachineTypeList
+    plural: machinetypes
+    singular: machinetype
+  preserveUnknownFields: false
+  scope: Cluster
+  subresources: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: MachineTypeSpec defines the desired state of MachineType
+          properties:
+            category:
+              type: string
+            cpu:
+              anyOf:
+              - type: integer
+              - type: string
+              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+              x-kubernetes-int-or-string: true
+            deprecated:
+              type: boolean
+            description:
+              type: string
+            disk:
+              anyOf:
+              - type: integer
+              - type: string
+              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+              x-kubernetes-int-or-string: true
+            ram:
+              anyOf:
+              - type: integer
+              - type: string
+              pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+              x-kubernetes-int-or-string: true
+            regions:
+              items:
+                type: string
+              type: array
+            sku:
+              type: string
+            zones:
+              items:
+                type: string
+              type: array
+          required:
+          - cpu
+          - ram
+          - sku
+          type: object
+      type: object
+  version: v1
+  versions:
+  - name: v1
+    served: true
+    storage: true

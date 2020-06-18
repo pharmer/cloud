@@ -6,25 +6,22 @@
 [![Build Status](https://travis-ci.org/moul/gotty-client.svg?branch=master)](https://travis-ci.org/moul/gotty-client)
 [![GoDoc](https://godoc.org/github.com/moul/gotty-client?status.svg)](https://godoc.org/github.com/moul/gotty-client)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoul%2Fgotty-client.svg?type=shield)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fmoul%2Fgotty-client?ref=badge_shield)
+[![Sourcegraph](https://sourcegraph.com/github.com/moul/gotty-client/-/badge.svg)](https://sourcegraph.com/github.com/moul/gotty-client?badge)
 
 ```ruby
-                                                             ┌─────────────────┐
-                                                     ┌──────▶│    /bin/bash    │
-                                                     │       └─────────────────┘
-                ┌──────────────┐               ┌──────────┐
-                │              │               │  Gotty   │
-┌───────┐   ┌──▶│   Browser    │───────┐       │          │
-│       │   │   │              │       │       │          │
-│       │   │   └──────────────┘       │       │          │  ┌─────────────────┐
-│  Bob  │───┤                      websockets─▶│          │─▶│ emacs /var/www  │
-│       │   │   ╔═ ══ ══ ══ ══ ╗       │       │          │  └─────────────────┘
-│       │   │   ║              ║       │       │          │
-└───────┘   └──▶║ gotty-client  ───────┘       │          │
-                               ║               │          │
-                ╚═ ══ ══ ══ ══ ╝               └──────────┘
-                                                     │       ┌─────────────────┐
-                                                     └──────▶│   tmux attach   │
-                                                             └─────────────────┘
+                                                              +----------------+
+               +--------------+                +---------+--->|   /bin/bash    |
+               |              |                |         |    +----------------+
+           +-->|   Browser    |--+             |         |                      
++-------+  |   |              |  |             |         |                      
+|       |  |   +--------------+  |             |         |    +----------------+
+|  Bob  |--+                     +-websocket-->|  Gotty  |--->| emacs /var/www |
+|       |  |    XXXXXXXXXXXXXX   |             |         |    +----------------+
++-------+  |   X              X  |             |         |                      
+           +-->X gotty-client X--+             |         |                      
+               X              X                |         |    +----------------+
+                XXXXXXXXXXXXXX                 +---------+--->|  tmux attach   |
+                                                              +----------------+
 ```
 
 ## Example
@@ -107,6 +104,12 @@ $ brew install https://raw.githubusercontent.com/moul/gotty-client/master/contri
 ```
 
 ## Changelog
+
+### master (unreleased)
+
+* Fix TTY restoring by switching to [`github.com/moby/moby/pkg/term`](https://github.com/moby/moby/tree/master/pkg/term) ([#59](https://github.com/moul/gotty-client/pull/59) + ([#60](https://github.com/moul/gotty-client/pull/60) + ([#62](https://github.com/moul/gotty-client/pull/62) ([@Sh4d1](https://github.com/Sh4d1))
+
+[full commits list](https://github.com/moul/gotty-client/compare/v1.7.0...master)
 
 ### [v1.7.0](https://github.com/moul/gotty-client/releases/tag/v1.7.0) (2018-04-11)
 

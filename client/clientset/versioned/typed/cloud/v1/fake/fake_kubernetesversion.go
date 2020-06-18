@@ -19,6 +19,8 @@ limitations under the License.
 package fake
 
 import (
+	"context"
+
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -38,7 +40,7 @@ var kubernetesversionsResource = schema.GroupVersionResource{Group: "cloud.pharm
 var kubernetesversionsKind = schema.GroupVersionKind{Group: "cloud.pharmer.io", Version: "v1", Kind: "KubernetesVersion"}
 
 // Get takes name of the kubernetesVersion, and returns the corresponding kubernetesVersion object, and an error if there is any.
-func (c *FakeKubernetesVersions) Get(name string, options v1.GetOptions) (result *cloudv1.KubernetesVersion, err error) {
+func (c *FakeKubernetesVersions) Get(ctx context.Context, name string, options v1.GetOptions) (result *cloudv1.KubernetesVersion, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(kubernetesversionsResource, name), &cloudv1.KubernetesVersion{})
 	if obj == nil {
@@ -48,7 +50,7 @@ func (c *FakeKubernetesVersions) Get(name string, options v1.GetOptions) (result
 }
 
 // List takes label and field selectors, and returns the list of KubernetesVersions that match those selectors.
-func (c *FakeKubernetesVersions) List(opts v1.ListOptions) (result *cloudv1.KubernetesVersionList, err error) {
+func (c *FakeKubernetesVersions) List(ctx context.Context, opts v1.ListOptions) (result *cloudv1.KubernetesVersionList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(kubernetesversionsResource, kubernetesversionsKind, opts), &cloudv1.KubernetesVersionList{})
 	if obj == nil {
@@ -69,13 +71,13 @@ func (c *FakeKubernetesVersions) List(opts v1.ListOptions) (result *cloudv1.Kube
 }
 
 // Watch returns a watch.Interface that watches the requested kubernetesVersions.
-func (c *FakeKubernetesVersions) Watch(opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeKubernetesVersions) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(kubernetesversionsResource, opts))
 }
 
 // Create takes the representation of a kubernetesVersion and creates it.  Returns the server's representation of the kubernetesVersion, and an error, if there is any.
-func (c *FakeKubernetesVersions) Create(kubernetesVersion *cloudv1.KubernetesVersion) (result *cloudv1.KubernetesVersion, err error) {
+func (c *FakeKubernetesVersions) Create(ctx context.Context, kubernetesVersion *cloudv1.KubernetesVersion, opts v1.CreateOptions) (result *cloudv1.KubernetesVersion, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(kubernetesversionsResource, kubernetesVersion), &cloudv1.KubernetesVersion{})
 	if obj == nil {
@@ -85,7 +87,7 @@ func (c *FakeKubernetesVersions) Create(kubernetesVersion *cloudv1.KubernetesVer
 }
 
 // Update takes the representation of a kubernetesVersion and updates it. Returns the server's representation of the kubernetesVersion, and an error, if there is any.
-func (c *FakeKubernetesVersions) Update(kubernetesVersion *cloudv1.KubernetesVersion) (result *cloudv1.KubernetesVersion, err error) {
+func (c *FakeKubernetesVersions) Update(ctx context.Context, kubernetesVersion *cloudv1.KubernetesVersion, opts v1.UpdateOptions) (result *cloudv1.KubernetesVersion, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(kubernetesversionsResource, kubernetesVersion), &cloudv1.KubernetesVersion{})
 	if obj == nil {
@@ -95,22 +97,22 @@ func (c *FakeKubernetesVersions) Update(kubernetesVersion *cloudv1.KubernetesVer
 }
 
 // Delete takes name of the kubernetesVersion and deletes it. Returns an error if one occurs.
-func (c *FakeKubernetesVersions) Delete(name string, options *v1.DeleteOptions) error {
+func (c *FakeKubernetesVersions) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewRootDeleteAction(kubernetesversionsResource, name), &cloudv1.KubernetesVersion{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeKubernetesVersions) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(kubernetesversionsResource, listOptions)
+func (c *FakeKubernetesVersions) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(kubernetesversionsResource, listOpts)
 
 	_, err := c.Fake.Invokes(action, &cloudv1.KubernetesVersionList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched kubernetesVersion.
-func (c *FakeKubernetesVersions) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *cloudv1.KubernetesVersion, err error) {
+func (c *FakeKubernetesVersions) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *cloudv1.KubernetesVersion, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(kubernetesversionsResource, name, pt, data, subresources...), &cloudv1.KubernetesVersion{})
 	if obj == nil {
