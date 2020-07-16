@@ -19,15 +19,16 @@ package azure
 import (
 	"context"
 
+	"go.bytebuilders.dev/resource-model/apis"
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+	"go.bytebuilders.dev/resource-model/pkg/credential"
+
 	"github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2019-03-01/compute"
 	"github.com/Azure/azure-sdk-for-go/services/resources/mgmt/2018-06-01/subscriptions"
 	"github.com/Azure/go-autorest/autorest"
 	"github.com/Azure/go-autorest/autorest/adal"
 	"github.com/Azure/go-autorest/autorest/azure"
 	"github.com/appscode/go/log"
-	"go.bytebuilders.dev/resource-model/apis"
-	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
-	"go.bytebuilders.dev/resource-model/pkg/credential"
 )
 
 type Client struct {

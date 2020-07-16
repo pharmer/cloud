@@ -22,8 +22,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/appscode/go/log"
-	"github.com/pkg/errors"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"go.bytebuilders.dev/resource-model/pkg/cmds/options"
@@ -36,6 +34,9 @@ import (
 	"go.bytebuilders.dev/resource-model/pkg/providers/scaleway"
 	"go.bytebuilders.dev/resource-model/pkg/providers/vultr"
 	"go.bytebuilders.dev/resource-model/pkg/util"
+
+	"github.com/appscode/go/log"
+	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"

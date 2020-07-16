@@ -3,7 +3,7 @@ kind: CustomResourceDefinition
 metadata:
   creationTimestamp: null
   labels:
-    app.kubernetes.io/name: pharmer
+    app.kubernetes.io/name: bytebuilders
   name: cloudproviders.cloud.pharmer.io
 spec:
   group: cloud.pharmer.io

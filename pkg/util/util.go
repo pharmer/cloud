@@ -24,9 +24,10 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/pkg/errors"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+
+	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/version"
 	"sigs.k8s.io/yaml"

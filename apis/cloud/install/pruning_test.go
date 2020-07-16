@@ -21,6 +21,7 @@ import (
 
 	"go.bytebuilders.dev/resource-model/apis/cloud/fuzzer"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+
 	clientsetscheme "k8s.io/client-go/kubernetes/scheme"
 	crdfuzz "kmodules.xyz/crd-schema-fuzz"
 )

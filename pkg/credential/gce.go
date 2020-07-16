@@ -20,9 +20,10 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/spf13/pflag"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+
+	"github.com/spf13/pflag"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

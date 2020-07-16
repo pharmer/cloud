@@ -21,10 +21,11 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	vultr "github.com/JamesClonk/vultr/lib"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"go.bytebuilders.dev/resource-model/pkg/credential"
+
+	vultr "github.com/JamesClonk/vultr/lib"
 )
 
 type Client struct {

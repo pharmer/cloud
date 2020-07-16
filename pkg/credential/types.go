@@ -22,10 +22,11 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/pkg/errors"
 	"go.bytebuilders.dev/resource-model/apis"
 	api "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+
+	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/util/sets"
 )
 

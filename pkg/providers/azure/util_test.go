@@ -21,10 +21,11 @@ import (
 	"reflect"
 	"testing"
 
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+
 	"github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2019-03-01/compute"
 	"github.com/appscode/go/types"
 	"github.com/davecgh/go-spew/spew"
-	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 )
 
 func TestParseInstance(t *testing.T) {

@@ -21,14 +21,15 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"go.bytebuilders.dev/resource-model/apis"
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+	"go.bytebuilders.dev/resource-model/pkg/credential"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/ec2"
 	"github.com/pkg/errors"
-	"go.bytebuilders.dev/resource-model/apis"
-	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
-	"go.bytebuilders.dev/resource-model/pkg/credential"
 )
 
 type Client struct {

@@ -19,10 +19,11 @@ package cmds
 import (
 	"flag"
 
+	"go.bytebuilders.dev/resource-model/apis"
+
 	"github.com/appscode/go/flags"
 	v "github.com/appscode/go/version"
 	"github.com/spf13/cobra"
-	"go.bytebuilders.dev/resource-model/apis"
 	"k8s.io/client-go/kubernetes/scheme"
 	"kmodules.xyz/client-go/logs"
 	"kmodules.xyz/client-go/tools/cli"

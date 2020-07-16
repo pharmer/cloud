@@ -17,9 +17,10 @@ limitations under the License.
 package cmds
 
 import (
+	"go.bytebuilders.dev/resource-model/pkg/providers"
+
 	"github.com/appscode/go/term"
 	"github.com/spf13/cobra"
-	"go.bytebuilders.dev/resource-model/pkg/providers"
 )
 
 func NewCmdGenData() *cobra.Command {

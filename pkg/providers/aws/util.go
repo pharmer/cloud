@@ -19,10 +19,11 @@ package aws
 import (
 	"fmt"
 
-	"github.com/aws/aws-sdk-go/service/ec2"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"go.bytebuilders.dev/resource-model/pkg/util"
+
+	"github.com/aws/aws-sdk-go/service/ec2"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

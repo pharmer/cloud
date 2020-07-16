@@ -18,6 +18,7 @@ package v1
 
 import (
 	"go.bytebuilders.dev/resource-model/crds"
+
 	"kmodules.xyz/client-go/apiextensions"
 )
 

@@ -19,10 +19,11 @@ package cmds
 import (
 	"flag"
 
-	"github.com/appscode/go/term"
-	"github.com/spf13/cobra"
 	"go.bytebuilders.dev/resource-model/pkg/cmds/options"
 	"go.bytebuilders.dev/resource-model/pkg/providers"
+
+	"github.com/appscode/go/term"
+	"github.com/spf13/cobra"
 )
 
 func NewCmdKubeSupport() *cobra.Command {

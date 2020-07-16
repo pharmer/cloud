@@ -21,10 +21,11 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/packethost/packngo"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"go.bytebuilders.dev/resource-model/pkg/credential"
+
+	"github.com/packethost/packngo"
 )
 
 type Client struct {

@@ -17,10 +17,11 @@ limitations under the License.
 package scaleway
 
 import (
-	scaleway "github.com/scaleway/scaleway-cli/pkg/api"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"go.bytebuilders.dev/resource-model/pkg/credential"
+
+	scaleway "github.com/scaleway/scaleway-cli/pkg/api"
 )
 
 type Client struct {

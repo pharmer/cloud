@@ -19,11 +19,12 @@ package vultr
 import (
 	"strconv"
 
-	vultr "github.com/JamesClonk/vultr/lib"
-	"github.com/pkg/errors"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"go.bytebuilders.dev/resource-model/pkg/util"
+
+	vultr "github.com/JamesClonk/vultr/lib"
+	"github.com/pkg/errors"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )

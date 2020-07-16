@@ -20,10 +20,11 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/linode/linodego"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"go.bytebuilders.dev/resource-model/pkg/credential"
+
+	"github.com/linode/linodego"
 	"golang.org/x/oauth2"
 )
 

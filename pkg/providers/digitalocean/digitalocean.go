@@ -19,10 +19,11 @@ package digitalocean
 import (
 	"context"
 
-	"github.com/digitalocean/godo"
 	"go.bytebuilders.dev/resource-model/apis"
 	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"go.bytebuilders.dev/resource-model/pkg/credential"
+
+	"github.com/digitalocean/godo"
 	"golang.org/x/oauth2"
 )
 
