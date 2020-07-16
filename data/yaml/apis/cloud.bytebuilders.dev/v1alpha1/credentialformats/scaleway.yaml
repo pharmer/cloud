@@ -1,0 +1,23 @@
+apiVersion: cloud.bytebuilders.dev/v1alpha1
+kind: CredentialFormat
+metadata:
+  annotations:
+    cloud.pharmer.io/cluster-credential: ""
+  creationTimestamp: null
+  labels:
+    cloud.pharmer.io/provider: scaleway
+  name: scaleway
+spec:
+  displayFormat: field
+  fields:
+  - envconfig: SCALEWAY_ORGANIZATION
+    form: scaleway_organization
+    input: text
+    json: organization
+    label: Organization
+  - envconfig: SCALEWAY_TOKEN
+    form: scaleway_token
+    input: password
+    json: token
+    label: Token
+  provider: scaleway

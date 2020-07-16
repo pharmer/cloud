@@ -1,5 +1,5 @@
 /*
-Copyright The Kmodules Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,9 +19,8 @@ package install
 import (
 	"testing"
 
-	"pharmer.dev/cloud/apis/cloud/fuzzer"
-	v1 "pharmer.dev/cloud/apis/cloud/v1"
-
+	"go.bytebuilders.dev/resource-model/apis/cloud/fuzzer"
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	clientsetscheme "k8s.io/client-go/kubernetes/scheme"
 	crdfuzz "kmodules.xyz/crd-schema-fuzz"
 )

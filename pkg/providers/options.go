@@ -1,5 +1,5 @@
 /*
-Copyright The Pharmer Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -20,13 +20,12 @@ import (
 	"fmt"
 	"os"
 
-	"pharmer.dev/cloud/apis"
-	v1 "pharmer.dev/cloud/apis/cloud/v1"
-	"pharmer.dev/cloud/pkg/credential"
-
 	"github.com/appscode/go/flags"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"go.bytebuilders.dev/resource-model/apis"
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+	"go.bytebuilders.dev/resource-model/pkg/credential"
 )
 
 type Options struct {

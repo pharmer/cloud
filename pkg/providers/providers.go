@@ -1,5 +1,5 @@
 /*
-Copyright The Pharmer Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,21 +22,20 @@ import (
 	"path/filepath"
 	"strings"
 
-	"pharmer.dev/cloud/apis"
-	v1 "pharmer.dev/cloud/apis/cloud/v1"
-	"pharmer.dev/cloud/pkg/cmds/options"
-	"pharmer.dev/cloud/pkg/providers/aws"
-	"pharmer.dev/cloud/pkg/providers/azure"
-	"pharmer.dev/cloud/pkg/providers/digitalocean"
-	"pharmer.dev/cloud/pkg/providers/gce"
-	"pharmer.dev/cloud/pkg/providers/linode"
-	"pharmer.dev/cloud/pkg/providers/packet"
-	"pharmer.dev/cloud/pkg/providers/scaleway"
-	"pharmer.dev/cloud/pkg/providers/vultr"
-	"pharmer.dev/cloud/pkg/util"
-
 	"github.com/appscode/go/log"
 	"github.com/pkg/errors"
+	"go.bytebuilders.dev/resource-model/apis"
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
+	"go.bytebuilders.dev/resource-model/pkg/cmds/options"
+	"go.bytebuilders.dev/resource-model/pkg/providers/aws"
+	"go.bytebuilders.dev/resource-model/pkg/providers/azure"
+	"go.bytebuilders.dev/resource-model/pkg/providers/digitalocean"
+	"go.bytebuilders.dev/resource-model/pkg/providers/gce"
+	"go.bytebuilders.dev/resource-model/pkg/providers/linode"
+	"go.bytebuilders.dev/resource-model/pkg/providers/packet"
+	"go.bytebuilders.dev/resource-model/pkg/providers/scaleway"
+	"go.bytebuilders.dev/resource-model/pkg/providers/vultr"
+	"go.bytebuilders.dev/resource-model/pkg/util"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"

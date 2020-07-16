@@ -1,0 +1,49 @@
+{
+  "kind": "CredentialFormat",
+  "apiVersion": "cloud.bytebuilders.dev/v1alpha1",
+  "metadata": {
+    "name": "azure-cred",
+    "creationTimestamp": null,
+    "labels": {
+      "cloud.pharmer.io/provider": "azure"
+    },
+    "annotations": {
+      "cloud.pharmer.io/cluster-credential": "",
+      "cloud.pharmer.io/dns-credential": ""
+    }
+  },
+  "spec": {
+    "provider": "azure",
+    "displayFormat": "field",
+    "fields": [
+      {
+        "envconfig": "AZURE_TENANT_ID",
+        "form": "azure_tenant_id",
+        "json": "tenantID",
+        "label": "Tenant Id",
+        "input": "text"
+      },
+      {
+        "envconfig": "AZURE_SUBSCRIPTION_ID",
+        "form": "azure_subscription_id",
+        "json": "subscriptionID",
+        "label": "Subscription Id",
+        "input": "text"
+      },
+      {
+        "envconfig": "AZURE_CLIENT_ID",
+        "form": "azure_client_id",
+        "json": "clientID",
+        "label": "Client Id",
+        "input": "text"
+      },
+      {
+        "envconfig": "AZURE_CLIENT_SECRET",
+        "form": "azure_client_secret",
+        "json": "clientSecret",
+        "label": "Client Secret",
+        "input": "password"
+      }
+    ]
+  }
+}

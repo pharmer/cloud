@@ -1,5 +1,5 @@
 /*
-Copyright The Pharmer Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,11 +19,10 @@ package aws
 import (
 	"testing"
 
-	"pharmer.dev/cloud/pkg/credential"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"go.bytebuilders.dev/resource-model/pkg/credential"
 )
 
 var opts = credential.AWS{

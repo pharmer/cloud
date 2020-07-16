@@ -1,0 +1,19 @@
+apiVersion: cloud.bytebuilders.dev/v1alpha1
+kind: CredentialFormat
+metadata:
+  annotations:
+    cloud.pharmer.io/cluster-credential: ""
+    cloud.pharmer.io/dns-credential: ""
+  creationTimestamp: null
+  labels:
+    cloud.pharmer.io/provider: vultr
+  name: vultr
+spec:
+  displayFormat: field
+  fields:
+  - envconfig: VULTR_TOKEN
+    form: vultr_token
+    input: password
+    json: token
+    label: Personal Access Token
+  provider: vultr

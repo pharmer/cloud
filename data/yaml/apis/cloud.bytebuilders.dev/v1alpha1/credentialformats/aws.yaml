@@ -1,0 +1,25 @@
+apiVersion: cloud.bytebuilders.dev/v1alpha1
+kind: CredentialFormat
+metadata:
+  annotations:
+    cloud.pharmer.io/cluster-credential: ""
+    cloud.pharmer.io/dns-credential: ""
+    cloud.pharmer.io/storage-credential: ""
+  creationTimestamp: null
+  labels:
+    cloud.pharmer.io/provider: aws
+  name: aws
+spec:
+  displayFormat: field
+  fields:
+  - envconfig: AWS_ACCESS_KEY_ID
+    form: aws_access_key_id
+    input: text
+    json: accessKeyID
+    label: Access Key Id
+  - envconfig: AWS_SECRET_ACCESS_KEY
+    form: aws_secret_access_key
+    input: password
+    json: secretAccessKey
+    label: Secret Access Key
+  provider: aws

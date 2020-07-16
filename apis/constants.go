@@ -1,5 +1,5 @@
 /*
-Copyright The Pharmer Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@ import (
 )
 
 const (
-	KeyCloudProvider     = "cloud.pharmer.io/provider"
-	KeyClusterCredential = "cloud.pharmer.io/cluster-credential"
-	KeyDNSCredential     = "cloud.pharmer.io/dns-credential"
-	KeyStorageCredential = "cloud.pharmer.io/storage-credential"
+	KeyCloudProvider     = "cloud.bytebuilders.dev/provider"
+	KeyClusterCredential = "cloud.bytebuilders.dev/cluster-credential"
+	KeyDNSCredential     = "cloud.bytebuilders.dev/dns-credential"
+	KeyStorageCredential = "cloud.bytebuilders.dev/storage-credential"
 )
 
 const (
@@ -45,5 +45,5 @@ var (
 )
 
 func init() {
-	DataDir = filepath.Join(build.Default.GOPATH, "src/pharmer.dev/cloud/data")
+	DataDir = filepath.Join(build.Default.GOPATH, "src/go.bytebuilders.dev/resource-model/data")
 }

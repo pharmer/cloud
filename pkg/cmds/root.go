@@ -1,5 +1,5 @@
 /*
-Copyright The Pharmer Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,11 +19,10 @@ package cmds
 import (
 	"flag"
 
-	"pharmer.dev/cloud/apis"
-
 	"github.com/appscode/go/flags"
 	v "github.com/appscode/go/version"
 	"github.com/spf13/cobra"
+	"go.bytebuilders.dev/resource-model/apis"
 	"k8s.io/client-go/kubernetes/scheme"
 	"kmodules.xyz/client-go/logs"
 	"kmodules.xyz/client-go/tools/cli"

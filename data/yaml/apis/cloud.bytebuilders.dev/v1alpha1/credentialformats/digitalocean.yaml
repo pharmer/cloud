@@ -1,0 +1,19 @@
+apiVersion: cloud.bytebuilders.dev/v1alpha1
+kind: CredentialFormat
+metadata:
+  annotations:
+    cloud.pharmer.io/cluster-credential: ""
+    cloud.pharmer.io/dns-credential: ""
+  creationTimestamp: null
+  labels:
+    cloud.pharmer.io/provider: digitalocean
+  name: digitalocean
+spec:
+  displayFormat: field
+  fields:
+  - envconfig: DIGITALOCEAN_TOKEN
+    form: digitalocean_token
+    input: password
+    json: token
+    label: Personal Access Token
+  provider: digitalocean

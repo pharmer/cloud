@@ -1,5 +1,5 @@
 /*
-Copyright The Pharmer Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -19,11 +19,10 @@ package cmds
 import (
 	"flag"
 
-	"pharmer.dev/cloud/pkg/cmds/options"
-	"pharmer.dev/cloud/pkg/providers"
-
 	"github.com/appscode/go/term"
 	"github.com/spf13/cobra"
+	"go.bytebuilders.dev/resource-model/pkg/cmds/options"
+	"go.bytebuilders.dev/resource-model/pkg/providers"
 )
 
 func NewCmdKubeSupport() *cobra.Command {

@@ -1,0 +1,25 @@
+{
+  "kind": "CredentialFormat",
+  "apiVersion": "cloud.bytebuilders.dev/v1alpha1",
+  "metadata": {
+    "name": "linode",
+    "creationTimestamp": null,
+    "annotations": {
+      "cloud.pharmer.io/cluster-credential": "",
+      "cloud.pharmer.io/dns-credential": ""
+    }
+  },
+  "spec": {
+    "provider": "linode",
+    "displayFormat": "field",
+    "fields": [
+      {
+        "envconfig": "LINODE_TOKEN",
+        "form": "linode_token",
+        "json": "token",
+        "label": "Token",
+        "input": "password"
+      }
+    ]
+  }
+}

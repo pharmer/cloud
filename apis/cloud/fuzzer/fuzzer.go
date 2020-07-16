@@ -1,5 +1,5 @@
 /*
-Copyright The Kmodules Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -18,9 +18,8 @@ limitations under the License.
 package fuzzer
 
 import (
-	v1 "pharmer.dev/cloud/apis/cloud/v1"
-
 	fuzz "github.com/google/gofuzz"
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	runtimeserializer "k8s.io/apimachinery/pkg/runtime/serializer"
 )
 

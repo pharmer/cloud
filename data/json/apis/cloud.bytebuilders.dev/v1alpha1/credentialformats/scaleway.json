@@ -1,0 +1,34 @@
+{
+  "kind": "CredentialFormat",
+  "apiVersion": "cloud.bytebuilders.dev/v1alpha1",
+  "metadata": {
+    "name": "scaleway",
+    "creationTimestamp": null,
+    "labels": {
+      "cloud.pharmer.io/provider": "scaleway"
+    },
+    "annotations": {
+      "cloud.pharmer.io/cluster-credential": ""
+    }
+  },
+  "spec": {
+    "provider": "scaleway",
+    "displayFormat": "field",
+    "fields": [
+      {
+        "envconfig": "SCALEWAY_ORGANIZATION",
+        "form": "scaleway_organization",
+        "json": "organization",
+        "label": "Organization",
+        "input": "text"
+      },
+      {
+        "envconfig": "SCALEWAY_TOKEN",
+        "form": "scaleway_token",
+        "json": "token",
+        "label": "Token",
+        "input": "password"
+      }
+    ]
+  }
+}

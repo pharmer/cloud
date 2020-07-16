@@ -12,18 +12,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 SHELL=/bin/bash -o pipefail
 
-GO_PKG   := pharmer.dev
+GO_PKG   := go.bytebuilders.dev
 REPO     := $(notdir $(shell pwd))
-BIN      := cloud
+BIN      := resource-model
 
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
 CRD_OPTIONS          ?= "crd:trivialVersions=true,preserveUnknownFields=false,crdVersions={v1beta1,v1}"
 # https://github.com/appscodelabs/gengo-builder
 CODE_GENERATOR_IMAGE ?= appscode/gengo:release-1.18
-API_GROUPS           ?= cloud:v1
+API_GROUPS           ?= cloud:v1alpha1
 
 # This version-strategy uses git tags to set the version string
 git_branch       := $(shell git rev-parse --abbrev-ref HEAD)
@@ -165,8 +164,8 @@ gen-crds:
 .PHONY: label-crds
 label-crds: $(BUILD_DIRS)
 	@for f in crds/*.yaml; do \
-		echo "applying app.kubernetes.io/name=pharmer label to $$f"; \
-		kubectl label --overwrite -f $$f --local=true -o yaml app.kubernetes.io/name=pharmer > bin/crd.yaml; \
+		echo "applying app.kubernetes.io/name=bytebuilders label to $$f"; \
+		kubectl label --overwrite -f $$f --local=true -o yaml app.kubernetes.io/name=bytebuilders > bin/crd.yaml; \
 		mv bin/crd.yaml $$f; \
 	done
 

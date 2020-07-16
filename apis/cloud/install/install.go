@@ -1,5 +1,5 @@
 /*
-Copyright The Kmodules Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,8 +17,7 @@ limitations under the License.
 package install
 
 import (
-	v1 "pharmer.dev/cloud/apis/cloud/v1"
-
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"k8s.io/apimachinery/pkg/runtime"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 )

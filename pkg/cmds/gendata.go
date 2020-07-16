@@ -1,5 +1,5 @@
 /*
-Copyright The Pharmer Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -17,10 +17,9 @@ limitations under the License.
 package cmds
 
 import (
-	"pharmer.dev/cloud/pkg/providers"
-
 	"github.com/appscode/go/term"
 	"github.com/spf13/cobra"
+	"go.bytebuilders.dev/resource-model/pkg/providers"
 )
 
 func NewCmdGenData() *cobra.Command {

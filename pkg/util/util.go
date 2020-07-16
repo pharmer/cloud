@@ -1,5 +1,5 @@
 /*
-Copyright The Pharmer Authors.
+Copyright 2020 AppsCode Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -24,10 +24,9 @@ import (
 	"strconv"
 	"strings"
 
-	"pharmer.dev/cloud/apis"
-	v1 "pharmer.dev/cloud/apis/cloud/v1"
-
 	"github.com/pkg/errors"
+	"go.bytebuilders.dev/resource-model/apis"
+	v1 "go.bytebuilders.dev/resource-model/apis/cloud/v1alpha1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/version"
 	"sigs.k8s.io/yaml"

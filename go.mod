@@ -1,4 +1,4 @@
-module pharmer.dev/cloud
+module go.bytebuilders.dev/resource-model
 
 go 1.12
 
